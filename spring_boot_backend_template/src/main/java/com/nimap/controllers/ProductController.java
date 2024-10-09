@@ -40,6 +40,15 @@ public class ProductController {
 			return ResponseEntity.badRequest().body("Somthing went Wrong!!");
 		}
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getById(@PathVariable Long id){
+		try {
+			return ResponseEntity.ok(productService.getById(id));
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().body("Somthing went Wrong!!");
+		}
+	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateProduct(@PathVariable Long id,@RequestBody ProductRequestDTO dto){
