@@ -51,5 +51,11 @@ public class CategoryServiceImpl implements CategoryService {
 		return persistentCategory!=null?new ApiResponse("Category Updated Successfully"):new ApiResponse("Something went Wrong!");
 	}
 
+	@Override
+	public ApiResponse deleteCategory(Long id) {
+		categoryDao.deleteById(id);
+		return new ApiResponse("Category deleted SUccessfuly!");
+	}
+
 	
 }

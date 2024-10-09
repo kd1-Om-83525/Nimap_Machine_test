@@ -18,4 +18,6 @@ public interface CategoryService {
 	Category getById(Long id);
 	
 	ApiResponse updateCategory(Long id,CategoryRequestDTO dto);
+
+	ApiResponse deleteCategory(Long id);
 }
