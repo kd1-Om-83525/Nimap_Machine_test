@@ -11,4 +11,6 @@ public interface ProductService {
 	Page<Product> getAllProducts(int page, int size);
 	
 	ApiResponse createProduct(ProductRequestDTO dto);
+	
+	ApiResponse updateProduct(Long productId,ProductRequestDTO dto);
 }

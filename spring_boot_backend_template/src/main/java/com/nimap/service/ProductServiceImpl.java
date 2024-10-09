@@ -42,4 +42,15 @@ public class ProductServiceImpl implements ProductService{
 		return persistentProduct!=null?new ApiResponse("Product Added successfully!"):new ApiResponse("Something went Wrong");
 	}
 
+	@Override
+	public ApiResponse updateProduct(Long productId,ProductRequestDTO dto) {
+		Product product=productDao.findById(productId).orElseThrow(()->new RuntimeException("Product not found"));
+		Category category=categoryDao.findById(dto.getCategoryId()).orElseThrow(()->new RuntimeException("Category does not existst"));
+		product.setCategory(category);
+		product.setName(dto.getName());
+		product.setPrice(dto.getPrice());
+		Product persistentProduct=productDao.save(product);
+		return persistentProduct!=null?new ApiResponse("Product Updated Successfully"):new ApiResponse("Something Went Wrong!");
+	}
+
 }
