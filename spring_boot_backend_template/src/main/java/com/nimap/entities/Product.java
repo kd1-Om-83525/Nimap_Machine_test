@@ -1,5 +1,6 @@
 package com.nimap.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,6 +23,6 @@ public class Product {
 	private Long id;
 	private String name;
 	private double price;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private Category category;
 }
