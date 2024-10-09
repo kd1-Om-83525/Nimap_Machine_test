@@ -10,9 +10,12 @@ import com.nimap.dto.CategoryRequestDTO;
 import com.nimap.entities.Category;
 
 public interface CategoryService {
+	
 	Page<Category> getAllCategories(int page, int size);
 	
 	ApiResponse addCategory(CategoryRequestDTO dto);
 	
-	Category getById(Long id);  
+	Category getById(Long id);
+	
+	ApiResponse updateCategory(Long id,CategoryRequestDTO dto);
 }

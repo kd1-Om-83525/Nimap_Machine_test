@@ -42,5 +42,14 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category getById(Long id) {
 		return categoryDao.findById(id).orElseThrow(()->new RuntimeException("Category not Found"));
 	}
+
+	@Override
+	public ApiResponse updateCategory(Long id,CategoryRequestDTO dto) {
+		Category category = getById(id);
+		category.setName(dto.getName());
+		Category persistentCategory=categoryDao.save(category);
+		return persistentCategory!=null?new ApiResponse("Category Updated Successfully"):new ApiResponse("Something went Wrong!");
+	}
+
 	
 }
