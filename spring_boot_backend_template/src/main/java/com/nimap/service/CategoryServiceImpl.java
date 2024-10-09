@@ -1,7 +1,5 @@
 package com.nimap.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
