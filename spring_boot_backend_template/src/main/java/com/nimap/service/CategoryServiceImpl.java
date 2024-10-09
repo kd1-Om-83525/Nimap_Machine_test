@@ -1,7 +1,5 @@
 package com.nimap.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -11,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.nimap.dao.CategoryDao;
+import com.nimap.dao.ProductDao;
 import com.nimap.dto.ApiResponse;
 import com.nimap.dto.CategoryRequestDTO;
 import com.nimap.entities.Category;
@@ -21,6 +20,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryDao categoryDao;
+	
+	@Autowired
+	private ProductDao productDao;
 	
 	@Autowired
 	private ModelMapper mapper;
@@ -42,5 +44,24 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category getById(Long id) {
 		return categoryDao.findById(id).orElseThrow(()->new RuntimeException("Category not Found"));
 	}
+
+	@Override
+	public ApiResponse updateCategory(Long id,CategoryRequestDTO dto) {
+		Category category = getById(id);
+		category.setName(dto.getName());
+		Category persistentCategory=categoryDao.save(category);
+		return persistentCategory!=null?new ApiResponse("Category Updated Successfully"):new ApiResponse("Something went Wrong!");
+	}
+
+	@Override
+	public ApiResponse deleteCategory(Long id) {
+		Category category=categoryDao.findById(id).orElseThrow(()->new RuntimeException("Category Not found!"));
+		
+		productDao.deleteByCategoryId(id);
+		
+		categoryDao.delete(category);
+		return new ApiResponse("Category deleted SUccessfuly!");
+	}
+
 	
 }
