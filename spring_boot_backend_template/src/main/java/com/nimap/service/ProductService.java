@@ -15,4 +15,6 @@ public interface ProductService {
 	ApiResponse updateProduct(Long productId,ProductRequestDTO dto);
 	
 	Product getById(Long id);
+	
+	ApiResponse deleteProductById(Long id);
 }
