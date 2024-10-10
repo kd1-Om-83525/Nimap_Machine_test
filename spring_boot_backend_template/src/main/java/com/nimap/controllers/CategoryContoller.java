@@ -1,7 +1,10 @@
 package com.nimap.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +20,7 @@ import com.nimap.service.CategoryService;
 
 @RestController
 @RequestMapping("/api/categories")
+@Validated
 public class CategoryContoller {
 	@Autowired
 	private CategoryService categoryService;
@@ -33,7 +37,7 @@ public class CategoryContoller {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> createCategory(@RequestBody CategoryRequestDTO dto){
+	public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryRequestDTO dto){
 		try {
 			return ResponseEntity.ok(categoryService.addCategory(dto));
 		}catch(Exception e) {
@@ -52,7 +56,7 @@ public class CategoryContoller {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateCategoryById(@PathVariable Long id,@RequestBody CategoryRequestDTO dto){
+	public ResponseEntity<?> updateCategoryById(@PathVariable Long id,@Valid @RequestBody CategoryRequestDTO dto){
 		try {
 			return ResponseEntity.ok(categoryService.updateCategory(id,dto));
 		}catch(Exception e) {

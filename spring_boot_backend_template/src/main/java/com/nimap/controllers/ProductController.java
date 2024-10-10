@@ -1,7 +1,10 @@
 package com.nimap.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +20,7 @@ import com.nimap.service.ProductService;
 
 @RestController
 @RequestMapping("/api/products")
+@Validated
 public class ProductController {
 	
 	@Autowired
@@ -34,7 +38,7 @@ public class ProductController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> createProduct(@RequestBody ProductRequestDTO dto){
+	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductRequestDTO dto){
 		try {
 			return ResponseEntity.ok(productService.createProduct(dto));
 		}catch(Exception e) {
@@ -52,7 +56,7 @@ public class ProductController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateProduct(@PathVariable Long id,@RequestBody ProductRequestDTO dto){
+	public ResponseEntity<?> updateProduct(@PathVariable Long id,@Valid @RequestBody ProductRequestDTO dto){
 		try {
 			return ResponseEntity.ok(productService.updateProduct(id,dto));
 		}catch(Exception e) {
