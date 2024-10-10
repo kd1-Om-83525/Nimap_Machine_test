@@ -53,4 +53,17 @@ public class ProductServiceImpl implements ProductService{
 		return persistentProduct!=null?new ApiResponse("Product Updated Successfully"):new ApiResponse("Something Went Wrong!");
 	}
 
+	@Override
+	public Product getById(Long id) {
+		return productDao.findById(id).orElseThrow(()->new RuntimeException("Product of this id not Found"));
+	}
+
+	@Override
+	public ApiResponse deleteProductById(Long id) {
+		Product product=productDao.findById(id).orElseThrow(()->new RuntimeException("Product not found of this id"));
+		product.setCategory(null);
+		productDao.delete(product);
+		return new ApiResponse("Product deketed successfully");
+	}
+
 }
